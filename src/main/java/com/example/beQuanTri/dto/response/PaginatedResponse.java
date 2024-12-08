@@ -1,0 +1,20 @@
+package com.example.beQuanTri.dto.response;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PaginatedResponse<T> {
+    String message;
+    T data;
+    int currentPage;
+    int totalPages;
+    long totalElements;
+    boolean last;
+}
