@@ -15,6 +15,6 @@ public class ProductUpdateRequest {
     String description;
     int stock;
     int subscriptionDuration;
-    String categoryName;
+    String category;
     MultipartFile image;
 }

@@ -6,7 +6,6 @@ import com.example.beQuanTri.dto.response.product.ProductResponse;
 import com.example.beQuanTri.dto.storage.ImageInfo;
 import com.example.beQuanTri.entity.category.Category;
 import com.example.beQuanTri.entity.product.Product;
-import com.example.beQuanTri.entity.role.Role;
 import com.example.beQuanTri.exception.CustomException;
 import com.example.beQuanTri.exception.ErrorCode;
 import com.example.beQuanTri.mapper.product.ProductMapper;
@@ -138,7 +137,7 @@ public class ProductService {
 
         log.info("In Method updateProduct");
 
-        Category category = categoryService.findCategoryByName(productUpdateRequest.getCategoryName());
+        Category category = categoryService.findCategoryByName(productUpdateRequest.getCategory());
 
         Product product = findProductById(id);
 
