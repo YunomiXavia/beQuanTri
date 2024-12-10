@@ -101,12 +101,6 @@ public class OrderHelperService {
 
         // Save the commission and update collaborator's total earned commission
         commissionRepository.save(commission);
-
-        collaborator.setTotalCommissionEarned(
-                collaborator.getTotalCommissionEarned() + commissionAmount
-        );
-
-        collaboratorRepository.save(collaborator);
     }
 
     /**
