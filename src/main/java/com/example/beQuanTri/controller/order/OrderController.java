@@ -216,6 +216,22 @@ public class OrderController {
     }
 
     /**
+     * Retrieves all orders handled by a collaborator without pagination.
+     *
+     * @param collaboratorId the ID of the collaborator
+     * @return the list of orders handled by the collaborator
+     */
+    @GetMapping("/orders/collaborator/{collaboratorId}/history/without-pagination")
+    public ApiResponse<List<OrderResponse>> getCollaboratorOrderHistoryWithoutPagination(
+            @PathVariable("collaboratorId") String collaboratorId) {
+
+        return ApiResponse.<List<OrderResponse>>builder()
+                .message("Orders handled by collaborator retrieved successfully with pagination!")
+                .result(orderService.getOrdersByCollaboratorWithoutPagination(collaboratorId))
+                .build();
+    }
+
+    /**
      * Retrieves all orders in the system for admin with pagination.
      *
      * @param page the page number (default is 0)
@@ -242,6 +258,20 @@ public class OrderController {
         return ApiResponse.<PaginatedResponse<Page<OrderResponse>>>builder()
                 .message("All orders retrieved successfully with pagination!")
                 .result(paginatedResponse)
+                .build();
+    }
+
+    /**
+     * Retrieves all orders in the system for admin without pagination.
+     *
+     * @return the list of all orders
+     */
+    @GetMapping("/orders/history/without-pagination")
+    public ApiResponse<List<OrderResponse>> getOrdersHistoryWithoutPagination() {
+
+        return ApiResponse.<List<OrderResponse>>builder()
+                .message("All orders retrieved successfully with pagination!")
+                .result(orderService.getAllOrdersHistoryForAdminWithoutPagination())
                 .build();
     }
 

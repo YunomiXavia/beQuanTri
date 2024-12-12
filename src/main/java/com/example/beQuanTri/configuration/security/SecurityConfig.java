@@ -34,7 +34,7 @@ public class SecurityConfig {
             "/auth/login", "/auth/register", "/auth/refresh-token", "/auth/forgot-password/**", "/anonymous/**", "/products/**"
     };
 
-    private final List<String> URLS_CORS = List.of("http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:5500");
+    private final List<String> URLS_CORS = List.of("http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:5500","http://localhost:63342");
     private final List<String> METHODS_CORS = List.of("GET", "POST", "PUT", "DELETE", "OPTIONS");
     private final List<String> HEADERS_CORS = List.of("Authorization", "Content-Type", "X-Requested-With");
 

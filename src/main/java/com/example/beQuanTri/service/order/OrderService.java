@@ -342,6 +342,7 @@ public class OrderService {
                             product.getSubscriptionDuration()
                     );
 
+
             order.setStartDate(startDate);
             order.setEndDate(endDate);
         });
@@ -358,18 +359,22 @@ public class OrderService {
                 collaborator.getTotalOrdersHandled() + 1
         );
 
-        User user = order.getUser();
-        user.setTotalSpent(user.getTotalSpent() + order.getTotalAmount());
+        if (order.getUser() != null) {
+            User user = order.getUser();
+            user.setTotalSpent(user.getTotalSpent() + order.getTotalAmount());
+            userRepository.save(user);
+        }
 
         order.setStatus(completedStatus);
 
-        userRepository.save(user);
         commissionRepository.save(commission);
         orderRepository.save(order);
         collaboratorRepository.save(collaborator);
 
+
         return wrapOrderResponseByRole(order);
     }
+
 
     @PreAuthorize("!hasRole('Collaborator')")
     public OrderResponse cancelOrder(String orderId) {
@@ -422,6 +427,21 @@ public class OrderService {
     }
 
     /**
+     * Retrieves the order history for a specific collaborator without pagination.
+     *
+     * @param collaboratorId the ID of the collaborator
+     * @return a list of orders handled by the collaborator
+     */
+    @PreAuthorize("hasRole('Collaborator') or hasRole('Admin')")
+    public List<OrderResponse> getOrdersByCollaboratorWithoutPagination(String collaboratorId) {
+        log.info("Fetching paginated orders handled by collaboratorId without pagination: {}", collaboratorId);
+        return orderRepository.findByCollaboratorId(collaboratorId)
+                .stream()
+                .map(this::wrapOrderResponseByRole)
+                .toList();
+    }
+
+    /**
      * Retrieves the order history of a specific user.
      *
      * @param userId     the ID of the user
@@ -457,6 +477,16 @@ public class OrderService {
 
         Page<Order> ordersPage = orderRepository.findAll(pageable);
         return ordersPage.map(this::wrapOrderResponseByRole);
+    }
+
+    @PreAuthorize("hasRole('Admin')")
+    public List<OrderResponse> getAllOrdersHistoryForAdminWithoutPagination() {
+        log.info("Fetching paginated all orders history for Admin without pagination");
+
+        return orderRepository.findAll()
+                .stream()
+                .map(this::wrapOrderResponseByRole)
+                .toList();
     }
 
     /**

@@ -144,4 +144,21 @@ public class UserController {
                 .result(paginatedResponse)
                 .build();
     }
+
+    /**
+     * Retrieves a product by its unique product code.
+     *
+     * @param productCode the unique code of the product
+     * @return ApiResponse containing the ProductResponse object
+     */
+    @GetMapping("/product/code/{productCode}")
+    ApiResponse<ProductResponse> getProductByCode(
+            @PathVariable("productCode") String productCode) {
+        return ApiResponse.<ProductResponse>builder()
+                .message("Get Product Successfully!")
+                .result(
+                        productService.getProductByCode(productCode)
+                )
+                .build();
+    }
 }
