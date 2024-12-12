@@ -31,7 +31,7 @@ import java.util.List;
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final String[] PUBLIC_ENDPOINTS = {
-            "/auth/login", "/auth/register", "/auth/refresh-token", "/auth/forgot-password/**", "/anonymous/**", "/products/**"
+            "/auth/login", "/auth/register", "/auth/refresh-token", "/auth/forgot-password/**", "/anonymous/**", "/products/**", "/product/**"
     };
 
     private final List<String> URLS_CORS = List.of("http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:5500","http://localhost:63342");
